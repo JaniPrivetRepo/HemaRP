@@ -30,7 +30,9 @@ import logging
 import aiohttp
 from RiyaMusic import LOGGER
 from urllib.parse import urlparse
-from config import YOUR_API_URL, YOUR_API_KEY
+
+API_BASE_URL = "http://165.22.220.188:8000"
+API_KEY = os.getenv("YT_API_KEY", "Put Your On Key")
 
 async def get_telegram_file(telegram_url: str, video_id: str, file_type: str) -> str:
     logger = LOGGER("StrangerAPI/Youtube.py")
@@ -95,10 +97,10 @@ async def download_song(link: str) -> str:
 
     try:
         async with aiohttp.ClientSession() as session:
-            url = f"{YOUR_API_URL}/download/audio"
+            url = f"{API_BASE_URL}/download/audio"
             params = {
                 "video_id": video_id,
-                "YOUR_API_KEY": YOUR_API_KEY
+                "api_key": API_KEY
             }
             
             logger.info(f"🔄 [AUDIO] Requesting from API: {video_id}")
@@ -161,10 +163,10 @@ async def download_video(link: str) -> str:
 
     try:
         async with aiohttp.ClientSession() as session:
-            url = f"{YOUR_API_URL}/download/video"
+            url = f"{API_BASE_URL}/download/video"
             params = {
                 "video_id": video_id,
-                "YOUR_API_KEY": YOUR_API_KEY
+                "api_key": API_KEY
             }
             
             logger.info(f"🔄 [VIDEO] Requesting from API: {video_id}")
